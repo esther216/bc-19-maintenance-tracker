@@ -1,0 +1,19 @@
+{
+  "name": "bc-19-maintenance-tracker",
+  "version": "1.0.0",
+  "description": "An application that tracks maintenance requests",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esther216/bc-19-maintenance-tracker.git"
+  },
+  "author": "Esther Falayi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/esther216/bc-19-maintenance-tracker/issues"
+  },
+  "homepage": "https://github.com/esther216/bc-19-maintenance-tracker#readme"
+}
