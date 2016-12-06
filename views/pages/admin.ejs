@@ -1,0 +1,108 @@
+<%- contentFor('body') %>
+
+<!--Navbar-->
+<nav class="navbar navbar-dark bg-primary">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-6 col-md-6">
+				<h3>Maintenance Tracker</h3>
+			</div>
+			<div class="col-xs-6 col-md-6">
+				<nav class="navbar navbar-dark bg-primary">
+					<ul class="nav nav-tabs tabs-3" role="tablist">
+				    <li class="nav-item">
+				       <a class="nav-link active" data-toggle="tab" href="#profile" role="tab"><i class="fa fa-user"></i>Profile</a>
+				    </li>
+				    <li class="nav-item">
+				       <a class="nav-link" data-toggle="tab" href="#facilities" role="tab"><i class="fa fa-envelope"></i>All Facilities</a>
+				    </li>
+				    <li class="nav-item">
+				       <a class="nav-link" data-toggle="tab" href="#requests" role="tab"><i class="fa fa-envelope"></i>All Requests</a>
+				    </li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</nav>
+<!--/.Navbar-->
+
+<div class="tab-content">
+	<div class="tab-pane fade in active" id="profile" role="tabpanel">
+    <br>
+		<h2 class="h2-responsive wow fadeInLeft">Profile</h2>
+    <p>Name: Esther Falayi</p>
+    <p>Email: aquaster193@gmail.com</p>
+    <p>Phone Number: 07069792583</p>
+    <p>Role: Admin</p>
+  </div>
+  <div class="tab-pane fade" id="facilities" role="tabpanel">
+  	<br>
+    <h2 class="h2-responsive wow fadeInLeft">All Facilities</h2>
+    <table class="table">
+		  <thead>
+		    <tr>
+		        <th>#</th>
+		        <th>Facility ID</th>
+		        <th>Facility Name</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+			  <tr>
+		      <th scope="row">1</th>
+		      <td>001</td>
+		      <td>Generator</td>
+			  </tr>
+			  <tr>
+		      <th scope="row">1</th>
+		      <td>001</td>
+		      <td>Generator</td>
+			  </tr>
+		  </tbody>
+		</table>
+  </div>
+  <div class="tab-pane fade" id="requests" role="tabpanel">
+  	<br>
+    <h2 class="h2-responsive wow fadeInLeft">All Requests</h2>
+    <table class="table">
+		  <thead>
+		    <tr>
+		        <th>#</th>
+		        <th>Facility ID</th>
+		        <th>Facility Name</th>
+		        <th>Request Type</th>
+		        <th>Approved</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+			  <tr>
+		      <th scope="row">1</th>
+		      <td>001</td>
+		      <td>Generator</td>
+		      <td>Maintenance</td>
+		      <td>
+		    		<fieldset class="form-group">
+		          <input type="checkbox" class="filled-in" id="checkbox1">
+		          <label for="checkbox1"></label>
+		        </fieldset>
+		      </td>
+			  </tr>
+			  <tr>
+		      <th scope="row">1</th>
+		      <td>001</td>
+		      <td>Generator</td>
+		      <td>Maintenance</td>
+		      <td>
+		    		<fieldset class="form-group">
+		          <input type="checkbox" class="filled-in" id="checkbox1">
+		          <label for="checkbox1"></label>
+		        </fieldset>
+		      </td>
+			  </tr>
+		  </tbody>
+		</table> 
+  </div>
+</div>
+
+
+

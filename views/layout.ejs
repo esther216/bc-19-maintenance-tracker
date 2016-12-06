@@ -7,35 +7,23 @@
   <title>Maintenance Tracker</title>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" href="/css/bootstrap.min.css" >
   <link rel="stylesheet" href="/css/mdb.min.css">   
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-  <header>
-    <nav class="navbar navbar-inverse">
-      <a href="/" class="navbar-brand">My Site</a>
-      <ul class="nav navbar-nav">
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-
-  <!-- MAIN CONTENT HERE -->
-  <%- defineContent('hero') %>
-
-  <main>
-    <div class="container">
-      <%- body %>
-    </div>
-  </main>
-
-  <footer>
-    Awesome Site. Copyright &copy; 2016
-  </footer>
+  <div class="container-fluid">
+    <main class="view">
+        <%- body %>
+    </main>
+    
+    <footer class="page-footer center-on-small-only">
+      <div class="footer-copyright">
+        &copy;&nbsp;2016 Copyright: <a href="#">MaintenanceTracker.com</a>
+      </div>
+    </footer>
+  </div>
   <script type="text/javascript" src="/js/jquery-3.1.1.min.js"></script>
   <script type="text/javascript" src="/js/tether.min.js"></script>
   <script type="text/javascript" src="/js/bootstrap.min.js"></script>

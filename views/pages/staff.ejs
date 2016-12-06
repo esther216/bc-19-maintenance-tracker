@@ -1,0 +1,57 @@
+<%- contentFor('body') %>
+<!--Navbar-->
+<nav class="navbar navbar-dark bg-primary">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-6 col-md-8">
+				<h3>Maintenance Tracker</h3>
+			</div>
+			<div class="col-xs-6 col-md-4">
+				<nav class="navbar navbar-dark bg-primary">
+					<ul class="nav nav-tabs tabs-2" role="tablist">
+				    <li class="nav-item">
+				       <a class="nav-link active" data-toggle="tab" href="#profile" role="tab"><i class="fa fa-user"></i>Profile</a>
+				    </li>
+				    <li class="nav-item">
+				       <a class="nav-link" data-toggle="tab" href="#report" role="tab"><i class="fa fa-envelope"></i>Report A Case</a>
+				    </li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</nav>
+<!--/.Navbar-->
+
+<div class="tab-content">
+	<div class="tab-pane fade in active" id="profile" role="tabpanel">
+    <br>
+		<div class="container">
+			<h2 class="h2-responsive wow fadeInLeft">Profile</h2>
+	    <p>Name: Esther Falayi</p>
+	    <p>Email: aquaster193@gmail.com</p>
+	    <p>Phone Number: 07069792583</p>
+	    <p>Role: Admin</p>
+		</div>
+  </div>
+  <div class="tab-pane fade" id="report" role="tabpanel">
+    <br>
+		
+    <div class="container">
+    	<h2 class="h2-responsive wow fadeInLeft">Report A Case</h2>
+    	<form>
+	    	<div class="md-form">
+			    <i class="fa fa-envelope prefix"></i>
+			    <input type="text" id="facility">
+			    <label for="facility">Facility Name or ID</label>
+				</div>
+	    	<div class="md-form">
+			    <i class="fa fa-pencil prefix"></i>
+			    <textarea type="text" id="description" class="md-textarea"></textarea>
+			    <label for="description">Icon Prefix</label>
+				</div>
+				<button type="button" class="btn btn-primary btn-lg waves-effect pull-right">Send Report</button>
+	    </form>
+    </div>
+  </div>
+</div>
