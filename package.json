@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/esther216/bc-19-maintenance-tracker/issues"
   },
-  "homepage": "https://github.com/esther216/bc-19-maintenance-tracker#readme"
+  "homepage": "https://github.com/esther216/bc-19-maintenance-tracker#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
 }
