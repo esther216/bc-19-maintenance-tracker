@@ -9,12 +9,7 @@
 	firebase.initializeApp(config);
 
 	var newUser= {};
-	var storage = firebase.storage();
-	var database = firebase.database();
 
-	var usersRef = storage.ref().child('users');
-	var facilitiesRef = storage.ref().child('facilities');
-	var requestsRef = storage.ref().child('requests');
 
 
 	$(document).ready(function(){
@@ -27,8 +22,8 @@
 			// create user on firebase
 			firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password)
 			.then(function(user){
-				console.log("User ID", user);
 				newUser.id = user.uid;
+				console.log(user);
 			})
 			.catch(function(error){
 				console.log(error);
