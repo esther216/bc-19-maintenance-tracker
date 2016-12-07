@@ -9,19 +9,31 @@
 	firebase.initializeApp(config);
 
 	var newUser= {};
-	var facilities= firebase.database().ref('facilities');
-	var requests = firebase.database().ref('requests');
-	var admins = firebase.database().ref('users/admins');
-	var members = firebase.database().ref('users/members');
+	var storage = firebase.storage();
+	var database = firebase.database();
+
+	var usersRef = storage.ref().child('users');
+	var facilitiesRef = storage.ref().child('facilities');
+	var requestsRef = storage.ref().child('requests');
+
 
 	$(document).ready(function(){
 		$('#sign-up-btn').click(function(){
 			newUser.name = $('.modal-body > div > #fname').val();
 			newUser.email = $('.modal-body > div > #email').val();
 			newUser.password = $('.modal-body > div > #password').val();
-			newUser.role= $('.modal-body > form').val();
-			console.log(newUser.role);
-		});
+			newUser.role= $('.modal-body > #role input[name=role]:checked').val();
+			
+			// create user on firebase
+			firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password)
+			.then(function(user){
+				console.log("User ID", user);
+				newUser.id = user.uid;
+			})
+			.catch(function(error){
+				console.log(error);
+			});
+		});	
 
 		$('#sign-in-btn').click(function(){
 			alert("you signed in!");
