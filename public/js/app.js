@@ -1,4 +1,5 @@
 (function(){
+
 	var config = {
 	  apiKey: "AIzaSyCic31NC__5P22dEgpoheCGHDm1AdzXRvw",
 	  authDomain: "maintenance-tracker-7a4ab.firebaseapp.com",
@@ -8,10 +9,11 @@
 	};
 	firebase.initializeApp(config);
 
+	var db = firebase.database();
+	var usersRef= db.ref('users');
+
+
 	var newUser= {};
-
-
-
 	$(document).ready(function(){
 		$('#sign-up-btn').click(function(){
 			newUser.name = $('.modal-body > div > #fname').val();
@@ -23,7 +25,8 @@
 			firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password)
 			.then(function(user){
 				newUser.id = user.uid;
-				console.log(user);
+				usersRef.push(newUser);
+				$('#sign-up').fadeOut(1000);
 			})
 			.catch(function(error){
 				console.log(error);
@@ -31,21 +34,33 @@
 		});	
 
 		$('#sign-in-btn').click(function(){
-			alert("you signed in!");
+			var email = $('#sign-in > div > div > .md-form > #email').val();
+			var password = $('#sign-in > div > div > .md-form > #password').val();
+			var data;
+
+			// Authenticate user
+			firebase.auth().signInWithEmailAndPassword(email, password)
+			.then(function(currentUser){
+				var userId= currentUser.email;
+				var filter = usersRef.orderByChild("email").equalTo(userId);
+				filter.once('value', function(snapshot){
+					var obj = snapshot.val();
+					for (var key in obj) {
+						data = obj[key];
+					}
+					if(data.role === "admin"){
+						window.location.href= "/admin";
+					}
+					if(data.role === "member"){
+						window.location.href= "/member";
+					}
+				});
+			}, function(error){
+				console.log(error.code);
+				console.log(error.message);
+			});
 		});
 	});
 
-	// User Authentication
-	// document.getElementById('sign-in').addEventListener('click', function(){
-	// 	var username= document.getElementById('uname').value;
-	// 	var password= document.getElementById('pass').value;
-		
-	// 	firebase.auth().signInWithEmailAndPassword(username, password).then(function(){
-	// 		console.log("Sign In was successful");
-	// 		window.location = '/admin';
-	// 	}, function(error){
-	// 		console.log(error.code);
-	// 		console.log(error.message);
-	// 	});
-	// });
+	
 })();
