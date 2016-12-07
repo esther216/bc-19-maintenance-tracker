@@ -3,7 +3,9 @@ var express        = require('express');
 var expressLayouts = require('express-ejs-layouts');
 var bodyParser     = require('body-parser');
 var app            = express();
+var firebase = require('firebase');
 var port           = process.env.PORT || 8080;
+
 
 // use ejs and express layouts
 app.set('view engine', 'ejs');
@@ -19,7 +21,10 @@ app.use('/', router);
 // set static files (css and images, etc) location
 app.use(express.static(__dirname + '/public'));
 
+
 // start the server
 app.listen(port, function() {
-  console.log('app started');
+  console.log('App Started');
 });
+
+

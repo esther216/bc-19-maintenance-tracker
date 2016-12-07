@@ -10,9 +10,62 @@
 		    <li class="nav-item">
 		        <a class="nav-link" data-toggle="tab" href="#contact" role="tab"><i class="fa fa-envelope"></i> Contact Us</a>
 		    </li>
+		    <li><a class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#sign-up">New Here? Create an account</a></li>
 			</ul>
 		</nav>
 
+		<!-- Modal: Sign Up -->
+		<div class="modal fade" id="sign-up" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	      <!--Content-->
+	      <div class="modal-content">
+	        <!--Header-->
+	          <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	              <span aria-hidden="true">&times;</span>
+	            </button>
+	            <h4 class="modal-title" id="myModalLabel">New User Sign Up</h4>
+	            </div>
+	            <!--Body-->
+	            <div class="modal-body">
+	            	<div class="md-form">
+									<i class="fa fa-user prefix"></i>
+					        <input type="text" id="fname" class="form-control">
+					        <label for="fname">Full Name</label>
+								</div>
+	              <div class="md-form">
+									<i class="fa fa-envelope prefix"></i>
+					        <input type="email" id="email" class="form-control">
+					        <label for="email">Email</label>
+								</div>
+								<div class="md-form">
+					        <i class="fa fa-lock prefix"></i>
+					        <input type="text" id="password" class="form-control">
+					        <label for="password">Password</label>
+					    	</div>
+					    </div>
+
+					    <form class="form-inline" id="role">
+					    	<fieldset class="form-group">
+						      <input name="role" type="radio" id="admin" checked="checked">
+						      <label for="admin">Administrator</label>
+						    </fieldset>
+						    <fieldset class="form-group">
+						      <input name="role" type="radio" id="member">
+						      <label for="member">Staff Member</label>
+						    </fieldset>
+					    </form>
+
+	            <!--Footer-->
+	            <div class="modal-footer">
+	              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+	              <button type="button" class="btn btn-primary" id="sign-up-btn">Create Account</button>
+	            </div>
+	        	</div>
+	        <!--/.Sign Up-->
+	    </div>
+		</div>
+		
 		<!-- Tab panels -->
 		<div class="tab-content">
 
@@ -21,11 +74,10 @@
 	      <br>
 				<h2 class="h2-responsive wow fadeInLeft">Maintenance Tracker</h2>
 	      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.</p>
-
 	    </div>
 		  <!--/home-->
 
-	    <!--Panel 2-->
+	    <!--Contact Us-->
 	    <div class="tab-pane fade" id="contact" role="tabpanel">
 	      <br>
 				<h2 class="h2-responsive wow fadeInLeft">We'd Love to Hear From You</h2>
@@ -33,9 +85,11 @@
 	      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.</p>
 
 	    </div>
-	    <!--/contact us-->
+	    <!--/Contact Us-->
 		</div>
 	</div>
+
+	<!--Sign In-->
 	<div class="col-xs-6 col-md-4 shift-down">
 		<div class="card wow fadeInRight">
 			<div class="card-block">
@@ -53,11 +107,11 @@
 	        <label for="pass">Password</label>
 	    	</div>
 	    	<div class="text-xs-center">
-	        <button class="btn btn-primary btn-lg">Sign In</button>
+	        <button class="btn btn-primary btn-lg" id="sign-in-btn">Sign In</button>
 	        <hr>
 	      </div>
-
 			</div>
-		</div>
+		</div>	
 	</div>
+	<!--Sign In-->
 </div>
