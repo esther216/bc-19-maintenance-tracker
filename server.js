@@ -16,7 +16,7 @@ app.use(expressLayouts);
 // use body parser
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// route our app
+// route app
 var router = require('./app/routes');
 app.use('/', router);
 
@@ -26,7 +26,7 @@ app.use(express.static(__dirname + '/public'));
 
 // start the server
 app.listen(port, function() {
-  console.log('App Started');
+  console.log('Maintenance Tracked App Started');
 });
 
 
