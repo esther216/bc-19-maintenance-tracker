@@ -9,23 +9,27 @@
 
 	firebase.initializeApp(config);
 
+	// initialise database and refs
 	var db = firebase.database();
 	var usersRef= db.ref('users');
 	var facilityRef = db.ref('facilities');
 	var requestRef = db.ref('requests');
 
-	var newUser= {};
-	var newFacility = {};
-	var newRequest = {};
-
-	// function to generate random IDs
-	function generateID(){
+	function generateFacilityID(){
 		var id = Math.random().toString(36).substring(2,7);
 		return id;
 	}
 
-	//function to add a new row to a table
-	function addRow(table, cols){
+	function loadUserPage(role){
+		if ( role === "admin" ){
+			window.location = '/admin';
+		}
+		if ( role === "member"){
+			window.location = '/member';
+		}
+	}
+
+	function addNewRow(table, cols){
 		var row = $('<tr/>');
 		for( var i = 0; i < cols.length; i++){
 			var col = $('<td/>').append(cols[i]);
@@ -40,142 +44,178 @@
 			select.append($('<option>', {
 				value: i + 1,
 				text: options[i]
-			}));
+				})
+			);
 		}
 	}
-	
+
+	function displayFacility(index, facility){
+		var facilityTable = $('#all-facilities');
+		var data = [index, facility.id, facility.name, facility.location];
+		addNewRow(facilityTable, data);
+	}
+
+	function displayRequest(index, request){
+		var requestTable = $('#requests > table');
+		var row = $('<tr/>');
+		var data = [
+			index, request.facilityName, request.description, 
+			request.approvalStatus, request.assignedStaff, 
+			request.resolvedStatus
+		];
+		
+		for( var i = 0; i < data.length; i++){
+			var col = $('<td/>');
+			col.append(data[i]);
+			row.append(col);
+		}
+		requestTable.append(row);
+		
+	}
+
+	function facilityOptions(facility){
+		var select = $('#report > div > div > div > select');
+		var data = [facility.name];
+		addOptions(select, data);
+	}
+
 	$(document).ready(function(){
 
-		function displayAllFacilities(){
-			var table = $('#all-facilities');
-			var select = $('#report > div > div > div > select');
-			var options = [];
-			facilityRef.once('value', function(snapshot){
-				
-				var obj = snapshot.val();
-				var i = 1;
-				for ( var key in obj ){
+		//create objects
+		var newUser= {};
+		var newFacility = {};
+		var newRequest = {};
 
-					var data = [i];
-					data.push(obj[key].id);
-					data.push(obj[key].name);
-					options.push(obj[key].name);
-					data.push(obj[key].location)
-
-					addRow(table, data);
-
-					i++;
-				}
-				addOptions(select, options);
-			});
-			
-		}
-
-		function displayAllRequests(){
-			var table = $('#requests > table');
-			requestRef.once('value', function(snapshot){
-				var obj = snapshot.val();
-				var i = 1;
-				
-				for ( var key in obj ){
-					var data = [i];
-					data.push(obj[key].facility.name);
-					data.push(obj[key].description);
-					data.push(obj[key].approval);
-					data.push(obj[key].resolved);
-
-					addRow(table, data);
-					i++;
-				}
-			
-			});
-		}
-
-		displayAllFacilities();
-		displayAllRequests();
-
+		// create a user
+		
 		$('#sign-up-btn').click(function(){
+			var elem = $(this);
 			newUser.name = $('.modal-body > div > #fname').val();
 			newUser.email = $('.modal-body > div > #email').val();
 			newUser.password = $('.modal-body > div > #password').val();
 			newUser.role= $('.modal-body > #role input[name=role]:checked').val();
-			
-			// create user on firebase
+
 			firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password)
 			.then( function(user){
 				newUser.id = user.uid;
 				usersRef.push(newUser);
-				$(this).attr('data-dismiss', 'modal');
+				loadUserPage(newUser.role);
 			})
 			.catch( function(error){
 				console.log(error);
 			});
-		});	
+		});
 
-		$('#sign-in-btn').click( function(){
+		// authenticate user sign in
+		$('#sign-in-btn').click(function(){
 			var email = $('#sign-in > div > div > .md-form > #email').val();
 			var password = $('#sign-in > div > div > .md-form > #password').val();
-			var data;
+			var details;
 
-			// Authenticate user
 			firebase.auth().signInWithEmailAndPassword(email, password)
-			.then( function(currentUser){
-				var userId = currentUser.email;
-				var filter = usersRef.orderByChild("email").equalTo(userId);
+			.then(function(currentUser){
+				var currentEmail = currentUser.email;
+				var filter = usersRef.orderByChild("email").equalTo(currentEmail);
 				filter.once('value', function(snapshot){
 					var obj = snapshot.val();
-					for ( var key in obj ) {
-						data = obj[key];
+					for ( var key in obj){
+						details = obj[key];
 					}
-					if ( data.role === "admin" ){
-						window.location.href= "/admin";
-					}
-					if ( data.role === "member" ){
-						window.location.href= "/member";
-					}
+					loadUserPage(details.role);
+					// display user details here
 				});
-			}, function(error){
+
+			})
+			.catch(function(error){
 				console.log(error.code);
 				console.log(error.message);
 			});
 		});
-	});
 
-	// add a facility
-	$('#facility-btn').click( function(){
-		var table = $('#all-facilities');
-		var data = [];
-		var numberOfRows = $('#all-facilities > tbody > tr').length;
-		
-		data[0] = numberOfRows + 1;
-		newFacility.id = generateID();
-		newFacility.name = $('.modal-body > div > #facility-name').val();
-		newFacility.location = $('.modal-body > div > #facility-location').val();
-		
-		facilityRef.push(newFacility);
-		data.push(newFacility.id);
-		data.push(newFacility.name);
-		data.push(newFacility.location);
-		addRow(table, data);
-		$(this).attr('data-dismiss', 'modal');
-	});
+		$('#facility-btn').click( function(){
+			var facilityTable = $('#all-facilities');
+			
+			var numberOfRows = $('#all-facilities > tbody > tr').length;
+			
+			var row = numberOfRows + 1;
+			newFacility.id = generateFacilityID();
+			newFacility.name = $('.modal-body > div > #facility-name').val();
+			newFacility.location = $('.modal-body > div > #facility-location').val();
+			
+			facilityRef.push(newFacility);
+			displayFacility(row, newFacility);
+			$(this).attr('data-dismiss', 'modal');
+		});
 
+		// make or send a report/request
 
-	// report a case / send a request
-	$('#report-btn').click(function(){
-		var selected = $('#report > div > div > div > select option:selected').text();
-		var description = $('#description').val();
-		var filter = facilityRef.orderByChild("name").equalTo(selected);
-		newRequest.approval = "awaiting";
-		newRequest.description = description;
-		newRequest.resolved = "";
-		
-		filter.on('value', function(snapshot){
-			snapshot.forEach(function(childSnapshot){
-				newRequest["facility"] = childSnapshot.val();
-				requestRef.push(newRequest);
+		$('#report-btn').click(function(){
+			var selected = $('#report > div > div > div > select option:selected').text();
+			var description = $('#description').val();
+			var filter = facilityRef.orderByChild("name").equalTo(selected);
+			newRequest.description = description;
+			newRequest.approvalStatus = "awaiting";
+			newRequest.assignedStaff = "none";
+			newRequest.resolvedStatus = "pending";
+
+			filter.once('value', function(snapshot){
+				var obj = snapshot.val();
+				var row = 1
+				for ( var key in obj ){
+					newRequest.facilityId = obj[key].id;
+					newRequest.facilityName = obj[key].name;
+					requestRef.push(newRequest);
+					row++;
+				}
 			});
-		});	
+
+		});
+
+		function getAllUsers(){
+			var select = $('#assign-staff > div > div > div > select');
+			
+			usersRef.once('value', function(snapshot){
+				var obj = snapshot.val();
+				for ( var key in obj ){
+					if ( obj[key].role !== "admin"){
+						addOptions(select, users);
+					}
+					
+				}
+			})
+		}
+
+		function getAllFacilities(){
+			facilityRef.once('value', function(snapshot){
+				var obj = snapshot.val();
+				var row = 1;
+				for ( var key in obj){
+					var facility = obj[key];
+					displayFacility(row, facility);
+					facilityOptions(facility);
+					row++;
+				}
+				
+			});
+		}
+
+		function getAllRequests(){
+			requestRef.on('value', function(snapshot){
+				var obj = snapshot.val();
+				var row = 1;
+				for ( var key in obj ){
+					var request = obj[key];
+					displayRequest(row, request);
+					row++;
+				}
+
+				
+			});
+		}
+
+		getAllFacilities();	
+		getAllRequests();
+		
 	});
 
 })();

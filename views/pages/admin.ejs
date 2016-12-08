@@ -90,14 +90,58 @@
 		        <th>Facility Name</th>
 		        <th>Description</th>
 		        <th>Approval Status</th>
+		        <th>Assign Staff</th>
 		        <th>Resolved</th>
 		    </tr>
 		  </thead>
 		  <tbody>
 			  
-			  </tr>
+			 
 		  </tbody>
 		</table> 
+
+		<!--approval-status-->
+		<div class="modal fade" id="approval-status" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-sm">
+		    <div class="modal-content">
+		      <div class="modal-body">
+		      	<form class="form-inline">
+				    	<fieldset class="form-group">
+					      <input name="status" type="radio" id="approved" checked="checked" value="approved">
+					      <label for="admin">Approve</label>
+					    </fieldset>
+					    <fieldset class="form-group">
+					      <input name="status" type="radio" id="rejected" value="rejected">
+					      <label for="rejected">Reject</label>
+					    </fieldset>
+				    </form>
+		      </div>
+		      <div class="modal-footer">
+		      	<button type="button" class="btn btn-primary" data-dismiss="modal" id="approval-status-btn">Save Changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </div>
+		    </div>
+		  </div>
+		</div>
+		<!--approval-status-->
+
+		<!--assign-staff-->
+		<div class="modal fade" id="assign-staff" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-sm">
+		    <div class="modal-content">
+		      <div class="modal-body">
+		      	<select>
+    				
+    				</select>
+		      </div>
+		      <div class="modal-footer">
+		      	<button type="button" class="btn btn-primary" data-dismiss="modal" id="approval-status-btn">Save Changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </div>
+		    </div>
+		  </div>
+		</div>
+		<!--assign-staff-->
   </div>
 </div>
 
