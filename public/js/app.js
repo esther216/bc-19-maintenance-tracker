@@ -6,6 +6,7 @@
 	  storageBucket: "maintenance-tracker-7a4ab.appspot.com",
 	  messagingSenderId: "431123767174"
 	};
+
 	firebase.initializeApp(config);
 
 	var db = firebase.database();
@@ -17,11 +18,13 @@
 	var newFacility = {};
 	var newRequest = {};
 
+	// function to generate random IDs
 	function generateID(){
 		var id = Math.random().toString(36).substring(2,7);
 		return id;
 	}
 
+	//function to add a new row to a table
 	function addRow(table, cols){
 		var row = $('<tr/>');
 		for( var i = 0; i < cols.length; i++){
@@ -31,6 +34,7 @@
 		table.append(row);
 	}
 
+	//function to add options to a select tag
 	function addOptions(select, options){
 		for( var i = 0; i < options.length; i++ ){
 			select.append($('<option>', {
@@ -98,35 +102,35 @@
 			
 			// create user on firebase
 			firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password)
-			.then(function(user){
+			.then( function(user){
 				newUser.id = user.uid;
 				usersRef.push(newUser);
 				$(this).attr('data-dismiss', 'modal');
 			})
-			.catch(function(error){
+			.catch( function(error){
 				console.log(error);
 			});
 		});	
 
-		$('#sign-in-btn').click(function(){
+		$('#sign-in-btn').click( function(){
 			var email = $('#sign-in > div > div > .md-form > #email').val();
 			var password = $('#sign-in > div > div > .md-form > #password').val();
 			var data;
 
 			// Authenticate user
 			firebase.auth().signInWithEmailAndPassword(email, password)
-			.then(function(currentUser){
-				var userId= currentUser.email;
+			.then( function(currentUser){
+				var userId = currentUser.email;
 				var filter = usersRef.orderByChild("email").equalTo(userId);
 				filter.once('value', function(snapshot){
 					var obj = snapshot.val();
-					for (var key in obj) {
+					for ( var key in obj ) {
 						data = obj[key];
 					}
-					if(data.role === "admin"){
+					if ( data.role === "admin" ){
 						window.location.href= "/admin";
 					}
-					if(data.role === "member"){
+					if ( data.role === "member" ){
 						window.location.href= "/member";
 					}
 				});
@@ -138,12 +142,11 @@
 	});
 
 	// add a facility
-	$('#facility-btn').click(function(){
+	$('#facility-btn').click( function(){
 		var table = $('#all-facilities');
 		var data = [];
 		var numberOfRows = $('#all-facilities > tbody > tr').length;
 		
-		console.log(numberOfRows);
 		data[0] = numberOfRows + 1;
 		newFacility.id = generateID();
 		newFacility.name = $('.modal-body > div > #facility-name').val();
