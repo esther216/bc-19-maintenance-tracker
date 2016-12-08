@@ -2,9 +2,9 @@
 Maintenance Tracker is an application to allow **reporting of maintenance and repairs request** in order to **track** the maintenance process and **escalate** unusual delays.
 
 ####**System Requirements**
-`1. A working pc is sufficient
-2. Node must be installed on pc
-3. A browser`
+`1. A working pc is sufficient`
+`2. Node must be installed on pc`
+`3. A browser`
 
 ####**Node Dependencies**
 1. body-parser
