@@ -64,7 +64,7 @@
 		var row = $('<tr/>');
 		var col;
 		var data = [
-			index, request.facilityName, request.description, 
+			index, request.facilityId, request.facilityName, request.description, 
 			request.approvalStatus, request.assignedStaff, 
 			request.resolvedStatus
 		];
@@ -205,12 +205,16 @@
 		// updating requests
 		$('#requests > table > tbody').on('click', 'tr', function(elem){
 			var col = elem.target;
-			var approvalStatus, assignedStaff;
+			
 			if ( col.innerText === "awaiting" ){
 				col.setAttribute("data-toggle","modal");
 				col.setAttribute("data-target","#approval-status");
 				
 				$('#approval-status-btn').click(function(){
+					if($("#approval-status input[type='radio']").is(':checked')) {
+				    var approvalStatus = $("#approval-status input[type='radio']:checked").val();
+						console.log(approvalStatus);
+					}
 					approvalStatus = $('#approval-status > div > div > div > form > fieldset > input[name="status"]:checked').val();
 					if ( approvalStatus === "approved"){
 						col.setAttribute("style","text-decoration: none;");
@@ -226,7 +230,7 @@
 				col.setAttribute("data-toggle","modal");
 				col.setAttribute("data-target","#assign-staff");
 				$('#assign-staff-btn').click(function(){
-					assignedStaff = $('#assign-staff .md-form input').val();
+					var assignedStaff = $('#assign-staff .md-form input').val();
 					col.innerText = assignedStaff;
 					col.removeAttribute('data-toggle');
 					col.removeAttribute('data-target');
@@ -234,7 +238,8 @@
 					col.setAttribute("style","text-decoration: none;");
 				});
 			}
-			
+
+		
 		});
 
 
