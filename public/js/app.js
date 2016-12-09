@@ -171,6 +171,16 @@
 
 		});
 
+		$('#sign-out-btn').click(function() {
+			var user = firebase.auth();
+			user.signOut().then(function() {
+			  window.location = "/";
+			}, function(error) {
+			  console.error('Sign Out Error', error);
+			});
+			
+		});
+
 		function getAllUsers(){
 			var select = $('#assign-staff > div > div > div > select');
 			

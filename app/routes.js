@@ -1,5 +1,6 @@
 // require express
 var express = require('express');
+var firebase = require('firebase');
 var path    = require('path');
 
 // create our router object
@@ -9,7 +10,7 @@ var router = express.Router();
 module.exports = router;
 
 // route for our homepage
-router.get('/home', function(req, res) {
+router.get('/', function(req, res) {
   res.render('pages/home');
 });
 // route for our about page
