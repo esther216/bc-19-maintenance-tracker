@@ -27,6 +27,7 @@
 		if ( role === "member"){
 			window.location = '/member';
 		}
+
 	}
 
 	function addNewRow(table, cols){
@@ -74,7 +75,7 @@
 	}
 
 	function facilityOptions(facility){
-		var select = $('#report > div > div > div > select');
+		var select = $('#report > div > div > div > .md-form > select#all');
 		var data = [facility.name];
 		addOptions(select, data);
 	}
@@ -89,7 +90,7 @@
 		// create a user
 		
 		$('#sign-up-btn').click(function(){
-			var elem = $(this);
+			
 			newUser.name = $('.modal-body > div > #fname').val();
 			newUser.email = $('.modal-body > div > #email').val();
 			newUser.password = $('.modal-body > div > #password').val();
@@ -99,7 +100,8 @@
 			.then( function(user){
 				newUser.id = user.uid;
 				usersRef.push(newUser);
-				loadUserPage(newUser.role);
+				$('#sign-up-btn').attr('data-dismiss', 'modal');
+				setTimeout(loadUserPage(newUser.role), 1000);
 			})
 			.catch( function(error){
 				console.log(error);
@@ -120,8 +122,8 @@
 					var obj = snapshot.val();
 					for ( var key in obj){
 						details = obj[key];
+						setTimeout(loadUserPage(details.role), 1000);
 					}
-					loadUserPage(details.role);
 					// display user details here
 				});
 
@@ -174,7 +176,9 @@
 		$('#sign-out-btn').click(function() {
 			var user = firebase.auth();
 			user.signOut().then(function() {
-			  window.location = "/";
+			  setTimeout(function(){
+			  	window.location = "/";
+			  }, 2000);
 			}, function(error) {
 			  console.error('Sign Out Error', error);
 			});

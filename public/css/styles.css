@@ -29,8 +29,23 @@ select{
 select:after{
 	content:"\f063";
 }
+.blockquote > ul{
+  margin-left: 1em;
+}
 
-
+#home h1, #home h4, #contact h2{
+  font-weight: 400;
+}
+#sign-in .card{
+  border-right: 3px solid #0275d8;
+}
+#sign-in .card-block > div.mdform{
+  margin-top: 1em;
+  width: 100%!important;
+}
+.blockquote > ul > li{
+  list-style: disc;
+}
 .navbar.navbar-dark .nav-link, .navbar.navbar-dark .navbar-toggler{
     color: #333;
 }
@@ -54,28 +69,20 @@ select:after{
 }*/
 
 @media (max-width: 768px) {
-    .full-bg-img,
+    /*.full-bg-img,
     .view {
         height: auto;
         position: relative;
-    }
+    }*/
 }
 
-/*.description {
-    padding-top: 25%;
-    padding-bottom: 3rem;
-    color: #fff
-}*/
 
 @media (max-width: 992px) {
-    .description {
-        padding-top: 7rem;
-        text-align: center;
-    }
+    
 }
 
-@media (min-width: 576px) {
-    .card{
-        width: 100%;
-    }
+@media (max-width: 576px) {
+ .row > #sign-in.col-xs-6{
+  width: 100%;
+ }
 }
