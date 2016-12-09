@@ -202,17 +202,31 @@
 			
 		});
 
-		// function getAllUsers(){
-		// 	usersRef.once('value', function(snapshot){
-		// 		var obj = snapshot.val();
-		// 		for ( var key in obj ){
-		// 			var user = obj[key];
-		// 			if ( user.role === "member" ){
-		// 				userOptions(user);
-		// 			}
-		// 		}
-		// 	});
-		// }
+		$('#requests > table > tbody').on('click', 'tr', function(elem){
+			var col = elem.target;
+			if ( col.innerText === "awaiting" ){
+				col.setAttribute("data-toggle","modal");
+				col.setAttribute("data-target","#approval-status");
+				
+				$('#approval-status-btn').click(function(){
+					var chosen = $('#approval-status > div > div > div > form > fieldset > input[name="status"]:checked').val();
+					if ( chosen === "approved"){
+						col.setAttribute("style","text-decoration: none;");
+						col.setAttribute("style","color: green;");
+					}
+					col.innerText = chosen;
+				});
+				
+			}
+			if ( col.innerText === "none" ){
+				col.setAttribute("data-toggle","modal");
+				col.setAttribute("data-target","#assign-staff");
+			}
+			if ( col.innerText === "pending" ){
+				col.innerHTML = $('input[type=checkbox]');
+			}
+		});
+
 
 		function getAllFacilities(){
 			facilityRef.once('value', function(snapshot){
