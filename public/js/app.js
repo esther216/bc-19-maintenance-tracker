@@ -202,29 +202,39 @@
 			
 		});
 
+		// updating requests
 		$('#requests > table > tbody').on('click', 'tr', function(elem){
 			var col = elem.target;
+			var approvalStatus, assignedStaff;
 			if ( col.innerText === "awaiting" ){
 				col.setAttribute("data-toggle","modal");
 				col.setAttribute("data-target","#approval-status");
 				
 				$('#approval-status-btn').click(function(){
-					var chosen = $('#approval-status > div > div > div > form > fieldset > input[name="status"]:checked').val();
-					if ( chosen === "approved"){
+					approvalStatus = $('#approval-status > div > div > div > form > fieldset > input[name="status"]:checked').val();
+					if ( approvalStatus === "approved"){
 						col.setAttribute("style","text-decoration: none;");
 						col.setAttribute("style","color: green;");
+						col.removeAttribute('data-toggle');
+						col.removeAttribute('data-target');
 					}
-					col.innerText = chosen;
+					col.innerText = approvalStatus;
 				});
 				
 			}
 			if ( col.innerText === "none" ){
 				col.setAttribute("data-toggle","modal");
 				col.setAttribute("data-target","#assign-staff");
+				$('#assign-staff-btn').click(function(){
+					assignedStaff = $('#assign-staff .md-form input').val();
+					col.innerText = assignedStaff;
+					col.removeAttribute('data-toggle');
+					col.removeAttribute('data-target');
+					col.setAttribute("style","color: blue;");
+					col.setAttribute("style","text-decoration: none;");
+				});
 			}
-			if ( col.innerText === "pending" ){
-				col.innerHTML = $('input[type=checkbox]');
-			}
+			
 		});
 
 
