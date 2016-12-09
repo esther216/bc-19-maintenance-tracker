@@ -1,0 +1,6 @@
+{
+  "name": "Bc-19-maintenance-tracker",
+  "tagline": "A system to allow reporting of maintenance and repairs requests, to track the maintenance process and escalate unusual delays.",
+  "body": "###Intoduction\r\nMaintenance Tracker is an application to allow **reporting of maintenance and repairs request** in order to **track** the maintenance process and **escalate** unusual delays.\r\n\r\n####**System Requirements**\r\n`1. A working pc is sufficient`\r\n`2. Node must be installed on pc`\r\n`3. A browser`\r\n\r\n####**Node Dependencies**\r\n1. body-parser\r\n2. express\r\n3. ejs\r\n4. express-ejs-layouts\r\n5. firebase\r\n\r\n*The above dependecies have to be installed (using **npm install <name-of-package> --save **) for the app tp work work as intended.*\r\n\r\n####**Front End Dependencies**\r\n1. Material Bootstrap\r\n2. jQuery\r\n3. ejs\r\n\r\n####**App Setup**\r\n1. Clone repo to local directory\r\n2. Install all dependencies\r\n3. Start server `**node server.js**`\r\n4. Start browser and direct to `**localhost:8080/**`",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
