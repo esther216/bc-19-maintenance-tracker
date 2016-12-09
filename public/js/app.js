@@ -19,7 +19,7 @@
 		var id = Math.random().toString(36).substring(2,7);
 		return id;
 	}
-
+// load user's page
 	function loadUserPage(role){
 		if ( role === "admin" ){
 			window.location = '/admin';
@@ -30,6 +30,7 @@
 
 	}
 
+	// add a new row to a table
 	function addNewRow(table, cols){
 		var row = $('<tr/>');
 		for( var i = 0; i < cols.length; i++){
@@ -50,15 +51,18 @@
 		}
 	}
 
+// display a facility
 	function displayFacility(index, facility){
 		var facilityTable = $('#all-facilities');
 		var data = [index, facility.id, facility.name, facility.location];
 		addNewRow(facilityTable, data);
 	}
 
+// display a request
 	function displayRequest(index, request){
 		var requestTable = $('#requests > table');
 		var row = $('<tr/>');
+		var col;
 		var data = [
 			index, request.facilityName, request.description, 
 			request.approvalStatus, request.assignedStaff, 
@@ -66,7 +70,13 @@
 		];
 		
 		for( var i = 0; i < data.length; i++){
-			var col = $('<td/>');
+			col = $('<td/>');
+			if ( data[i] === "none" || data[i] === "awaiting" || data[i] === "pending"){
+				col.css({
+					"text-decoration": 'underline',
+					"color": 'red'
+				});
+			}
 			col.append(data[i]);
 			row.append(col);
 		}
@@ -74,9 +84,16 @@
 		
 	}
 
+	// generate facility options for user
 	function facilityOptions(facility){
 		var select = $('#report > div > div > div > .md-form > select#all');
 		var data = [facility.name];
+		addOptions(select, data);
+	}
+
+	function userOptions(user){
+		var select = $('#assign-staff > div > div > div > select#id');
+		var data = [user.name];
 		addOptions(select, data);
 	}
 
@@ -185,19 +202,17 @@
 			
 		});
 
-		function getAllUsers(){
-			var select = $('#assign-staff > div > div > div > select');
-			
-			usersRef.once('value', function(snapshot){
-				var obj = snapshot.val();
-				for ( var key in obj ){
-					if ( obj[key].role !== "admin"){
-						addOptions(select, users);
-					}
-					
-				}
-			})
-		}
+		// function getAllUsers(){
+		// 	usersRef.once('value', function(snapshot){
+		// 		var obj = snapshot.val();
+		// 		for ( var key in obj ){
+		// 			var user = obj[key];
+		// 			if ( user.role === "member" ){
+		// 				userOptions(user);
+		// 			}
+		// 		}
+		// 	});
+		// }
 
 		function getAllFacilities(){
 			facilityRef.once('value', function(snapshot){
@@ -222,14 +237,14 @@
 					displayRequest(row, request);
 					row++;
 				}
-
 				
 			});
 		}
 
+
 		getAllFacilities();	
 		getAllRequests();
-		
+		//getAllUsers();
 	});
 
 })();
